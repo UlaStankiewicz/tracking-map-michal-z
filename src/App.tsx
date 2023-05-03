@@ -1,25 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
+import { Wrapper } from "@googlemaps/react-wrapper";
+
+import { Map } from "./components/Map/Map";
+
 import "./App.css";
+
+const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
+const tricityCoords = { lat: 54.4297342, lng: 18.4897076 };
+const zoom = 10;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper apiKey={apiKey}>
+      <Map center={tricityCoords} zoom={zoom} />
+    </Wrapper>
   );
 }
 

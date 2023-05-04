@@ -7,4 +7,5 @@
 
 .PointList__content {
   height: 50vh;
+  overflow: auto;
 }

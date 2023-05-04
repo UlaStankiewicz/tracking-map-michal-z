@@ -3,7 +3,19 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 import "./PointList.css";
 
-export const PointList = () => {
+interface Props {
+  points: Point[];
+}
+
+export const PointList = ({ points }: Props) => {
+  const pointList = points.map(({ name, lat, lng }) => (
+    <ListGroup.Item>
+      <div className="ms-2">
+        <div className="fw-bold">{name}</div>[{lat}, {lng}]
+      </div>
+    </ListGroup.Item>
+  ));
+
   return (
     <div className="PointList">
       <Card>
@@ -11,7 +23,7 @@ export const PointList = () => {
           <Card.Title>Points</Card.Title>
         </Card.Body>
         <ListGroup variant="flush" className="PointList__content">
-          <ListGroup.Item>placeholder [12345, 54321]</ListGroup.Item>
+          {pointList}
         </ListGroup>
         <Card.Body></Card.Body>
       </Card>

@@ -5,10 +5,11 @@ import "./Map.css";
 
 interface Props {
   center: google.maps.LatLngLiteral;
+  points: Point[];
   zoom: number;
 }
 
-export const Map = ({ center, zoom }: Props) => {
+export const Map = ({ center, points, zoom }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   let mapContainer = document.getElementById("map");
 
@@ -21,10 +22,18 @@ export const Map = ({ center, zoom }: Props) => {
   }
 
   useEffect(() => {
-    new window.google.maps.Map(mapRef.current as HTMLDivElement, {
+    const googleMaps = window.google.maps;
+
+    const map = new window.google.maps.Map(mapRef.current as HTMLDivElement, {
       center,
       zoom,
     });
+
+
+    points.map(({name, lat, lng}) => {
+      const marker = new googleMaps.Marker({position: {lat, lng}, title: name});
+      marker.setMap(map);
+    })
   });
 
   return createPortal(<div className="Map" ref={mapRef} />, mapContainer);

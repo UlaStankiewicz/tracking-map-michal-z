@@ -1,0 +1,10 @@
+.PointList {
+  width: 320px;
+  position: absolute;
+  left: 10px;
+  top: 120px;
+}
+
+.PointList__content {
+  height: 50vh;
+}

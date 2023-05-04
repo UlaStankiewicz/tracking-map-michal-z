@@ -10,6 +10,15 @@ interface Props {
 
 export const Map = ({ center, zoom }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  let mapContainer = document.getElementById("map");
+
+  if (!mapContainer) {
+    const rootContainer = document.getElementById("root");
+    mapContainer = document.createElement("div");
+    mapContainer.setAttribute("id", "map");
+
+    document.body.insertBefore(mapContainer, rootContainer);
+  }
 
   useEffect(() => {
     new window.google.maps.Map(mapRef.current as HTMLDivElement, {
@@ -18,5 +27,5 @@ export const Map = ({ center, zoom }: Props) => {
     });
   });
 
-  return createPortal(<div className="Map" id="map" ref={mapRef} />, document.body);
+  return createPortal(<div className="Map" ref={mapRef} />, mapContainer);
 };

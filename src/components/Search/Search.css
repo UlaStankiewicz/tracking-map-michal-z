@@ -1,0 +1,10 @@
+.Search {
+  position: absolute;
+  top: 10px;
+  left: 200px;
+}
+
+.Search__input {
+  width: 320px;
+  height: 40px;
+}

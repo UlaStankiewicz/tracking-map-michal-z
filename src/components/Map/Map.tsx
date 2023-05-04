@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { useEffect, useRef } from "react";
 
 import "./Map.css";
 
@@ -29,13 +30,14 @@ export const Map = ({ center, points, zoom }: Props) => {
       zoom,
     });
 
-    points.forEach(({ name, lat, lng }) => {
-      const marker = new googleMaps.Marker({
+    const markers = points.map(({ name, lat, lng }) => {
+      return new googleMaps.Marker({
         position: { lat, lng },
         title: name,
       });
-      marker.setMap(map);
     });
+
+    new MarkerClusterer({ markers, map });
   }, [center, points, zoom]);
 
   return createPortal(<div className="Map" ref={mapRef} />, mapContainer);

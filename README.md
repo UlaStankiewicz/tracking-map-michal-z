@@ -28,3 +28,13 @@ npm start
 ```
 
 Open http://localhost:3000 to view it in your browser.
+
+## Things to improve
+
+- The map is re-rendered with each update of points. It provides performance and UX issues.
+- Updating the state `points` based on events coming from the Socket.io server should be done more elegantly. I had to leave out one of the dependencies in the dependencies table of `useEffect`.
+- Interacting with Socket.io should be hidden behind an abstraction.
+- Debouncing user typing in the search input should be added to improve UX.
+- It would be nice to hide data from environment variables on the backend. Currently, eg API Key for Google Maps is included in the application bundle.
+- I created `src/services/tracking-map-api.ts` unnecessarily, so it would be nice to tidy up. Finally, I based all communication on the Socket.io server.
+- Tests should be added.

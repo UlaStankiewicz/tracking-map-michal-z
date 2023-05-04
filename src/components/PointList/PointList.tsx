@@ -8,8 +8,8 @@ interface Props {
 }
 
 export const PointList = ({ points }: Props) => {
-  const pointList = points.map(({ name, lat, lng }) => (
-    <ListGroup.Item>
+  const pointList = points.map(({ id, name, lat, lng }) => (
+    <ListGroup.Item key={id}>
       <div className="ms-2">
         <div className="fw-bold">{name}</div>[{lat}, {lng}]
       </div>

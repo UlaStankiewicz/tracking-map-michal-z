@@ -7,6 +7,7 @@ interface Config {
     };
     zoom: number;
   };
+  socketIoUrl: string;
   trackingMapApiUrl: string;
 }
 

@@ -24,17 +24,19 @@ export const Map = ({ center, points, zoom }: Props) => {
   useEffect(() => {
     const googleMaps = window.google.maps;
 
-    const map = new window.google.maps.Map(mapRef.current as HTMLDivElement, {
+    const map = new googleMaps.Map(mapRef.current as HTMLDivElement, {
       center,
       zoom,
     });
 
-
-    points.map(({name, lat, lng}) => {
-      const marker = new googleMaps.Marker({position: {lat, lng}, title: name});
+    points.forEach(({ name, lat, lng }) => {
+      const marker = new googleMaps.Marker({
+        position: { lat, lng },
+        title: name,
+      });
       marker.setMap(map);
-    })
-  });
+    });
+  }, [center, points, zoom]);
 
   return createPortal(<div className="Map" ref={mapRef} />, mapContainer);
 };

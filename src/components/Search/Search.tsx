@@ -1,24 +1,31 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, SyntheticEvent } from "react";
 import Form from "react-bootstrap/Form";
 
 import "./Search.css";
 
-export const Search = () => {
-  const [searchPhrase, setSearchPhrase] = useState("");
+interface Props {
+  onChange: (nextValue: string) => void;
+  searchPhrase: string;
+}
+
+export const Search = ({ onChange, searchPhrase }: Props) => {
+  const handleFormSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+  };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
 
-    setSearchPhrase(event.currentTarget.value);
+    onChange(event.currentTarget.value);
   };
 
   const handleReset = () => {
-    setSearchPhrase("");
+    onChange("");
   };
 
   return (
     <div className="Search">
-      <Form>
+      <Form onSubmit={handleFormSubmit}>
         <Form.Control
           aria-label="Search"
           className="Search__input"

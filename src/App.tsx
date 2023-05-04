@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 
 import { Map } from "./components/Map/Map";
@@ -23,16 +23,29 @@ const mockedPoints: Point[] = [
     name: "Car #2",
     lat: 54.4097342,
     lng: 18.4097076,
-  }
+  },
 ];
 
 function App() {
+  const [searchPhrase, setSearchPhrase] = useState("");
+
+  const handleSearchChange = (nextValue: string) => {
+    setSearchPhrase(nextValue);
+  };
+
+  const getFilteredPoints = () => {
+    return mockedPoints.filter(({ name }) => name.includes(searchPhrase));
+  };
+
+  const displayedPoints =
+    searchPhrase.length > 0 ? getFilteredPoints() : mockedPoints;
+
   return (
     <Fragment>
       <Wrapper apiKey={apiKey}>
-        <Map center={tricityCoords} points={mockedPoints} zoom={zoom} />
+        <Map center={tricityCoords} points={displayedPoints} zoom={zoom} />
       </Wrapper>
-      <Search />
+      <Search onChange={handleSearchChange} searchPhrase={searchPhrase} />
       <PointList points={mockedPoints} />
     </Fragment>
   );
